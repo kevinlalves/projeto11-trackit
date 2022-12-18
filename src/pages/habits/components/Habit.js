@@ -29,10 +29,10 @@ const Days = styled.div`
 `;
 
 const Day = styled.div`
-  border: 1px ${props => props.color.checked.back} solid;
+  border: 1px ${props => props.theme.color.checked.back} solid;
   border-radius: 5px;
-  color: ${props => props.checked ? props.color.checked.main : props.color.checked.back};
-  background-color: ${props => props.checked ? props.color.checked.back : props.color.checked.main };
+  color: ${props => props.checked ? props.theme.color.checked.main : props.theme.color.checked.back};
+  background-color: ${props => props.checked ? props.theme.color.checked.back : props.theme.color.checked.main };
   height: 30px;
   width: 30px;
   font-size: 20px;

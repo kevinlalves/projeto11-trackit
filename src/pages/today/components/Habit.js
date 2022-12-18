@@ -23,7 +23,7 @@ const HabitStyle = styled.div`
 
 
 const State = styled.div`
-  background-color: ${props => props.done ? props.color.done : props.color.checked.back};
+  background-color: ${props => props.done ? props.theme.color.done : props.theme.color.checked.back};
   border-radius: 5px;
   width: 69px;
   height: 69px;

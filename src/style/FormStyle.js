@@ -1,8 +1,42 @@
 import styled from "styled-components";
 
 
-const FormStyle = styled.div`
-
+const FormStyle = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  input {
+    margin-bottom: 6px;
+    width: 303px;
+    height: 45px;
+    padding-left: 10px;
+    font-size: 20px;
+    border: 1px ${props => props.theme.color.input} solid;
+  }
+  input::placeholder {
+    color: ${props => props.theme.color.input};
+  }
+  button {
+    border: none;
+    background-color: ${props => props.theme.color.main};
+    color: ${props => props.theme.color.secondary};
+    border-radius: 5px;
+    width: 303px;
+    height: 45px;
+    margin-bottom: 25px;
+    font-size: 21px;
+  }
 `;
 
-export default FormStyle;
+const ContentStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  p {
+    font-size: 14px;
+    color: ${props => props.theme.color.main};
+    text-decoration: underline;
+  }
+`
+
+export { FormStyle, ContentStyle };

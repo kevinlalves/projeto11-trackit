@@ -3,9 +3,21 @@ import Footer from "../../components/Footer";
 import LoggedPageStyle from "../../style/LoggedPageStyle";
 import Title from "./components/Title";
 import Habits from "../../components/Habits";
+import { useContext, useEffect } from "react";
+import UserContext from "../../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function TodayPage() {
-  return (
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user]);
+
+  return user ? (
     <>
       <Header />
       <LoggedPageStyle>
@@ -14,5 +26,5 @@ export default function TodayPage() {
       </LoggedPageStyle>
       <Footer />
     </>
-  );
+  ) : null;
 }

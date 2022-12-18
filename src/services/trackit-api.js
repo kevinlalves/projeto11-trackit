@@ -16,36 +16,43 @@ const signup = async (email, name, image, password) => {
   }).then(response => response.json());
 };
 
-const createHabit = async (name, days) => {
+const createHabit = async (name, days, token) => {
   return fetch(`${host}/habits`, {
     method: "post",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
     body: JSON.stringify({ name, days })
   }).then(response => response.json());
 };
 
-const listHabits = async () => {
-  return fetch(`${host}/habits`).then(response => response.json());
+const listHabits = async (token) => {
+  return fetch(`${host}/habits`, { headers: { "Authorization": `Bearer ${token}` } }).then(response => response.json());
 };
 
-const deleteHabit = async (habitId) => {
-  return fetch(`${host}/habits/${habitId}`, { method: "delete" });
+const deleteHabit = async (habitId, token) => {
+  return fetch(`${host}/habits/${habitId}`, { method: "delete", headers: { "Authorization": `Bearer ${token}` } });
 };
 
-const listTodaysHabits = async () => {
-  return fetch(`${host}/habits/today`).then(response => response.json());
+const listTodaysHabits = async (token) => {
+  return fetch(`${host}/habits/today`, {
+    headers: { "Authorization": `Bearer ${token}` }
+  }).then(response => response.json());
 };
 
-const checkHabitDone = async (habitId) => {
-  return fetch(`${host}/habits/${habitId}/check`, { method: "post" });
+const checkHabitDone = async (habitId, token) => {
+  return fetch(`${host}/habits/${habitId}/check`, { method: "post", headers: { "Authorization": `Bearer ${token}` } });
 };
 
-const uncheckHabitDone = async (habitId) => {
-  return fetch(`${host}/habits/${habitId}/uncheck`, { method: "post" });
+const uncheckHabitDone = async (habitId, token) => {
+  return fetch(`${host}/habits/${habitId}/uncheck`, {
+    method: "post",
+    headers: { "Authorization": `Bearer ${token}` }
+  });
 };
 
-const habitHistoric = async () => {
-  return fetch(`${host}/habits/history/daily`).then(response => response.json());
+const habitHistoric = async (token) => {
+  return fetch(`${host}/habits/history/daily`, {
+    headers: { "Authorization": `Bearer ${token}` }
+  }).then(response => response.json());
 };
 
 export {

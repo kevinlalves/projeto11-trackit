@@ -3,25 +3,32 @@ import Habits from "../../components/Habits";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import LoggedPageStyle from "../../style/LoggedPageStyle";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { listHabits } from "../../services/trackit-api";
 import Loading from "../../components/Loading";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 
 export default function HabitsPage() {
   const [habits, setHabits] = useState(undefined);
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    listHabits.then(data => setHabits(data))
-      .catch(err => {
-        console.log("Problem with listHabits", err);
-      })
+    if (!user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    console.log(listHabits(user.token));
   }, []);
 
   if (!habits) {
     return <Loading />;
   }
 
-  return (
+  return user ? (
     <>
       <Header />
       <LoggedPageStyle>
@@ -30,5 +37,5 @@ export default function HabitsPage() {
       </LoggedPageStyle>
       <Footer />
     </>
-  );
+  ) : null;
 }

@@ -1,14 +1,16 @@
 import TitleStyle from "../../../style/TitleStyle";
-import dayjs from "dayjs";
+import { useContext } from "react";
+import ProgressContext from "../../../contexts/ProgressContext";
+import { weekDays } from "../../../constants/i18n-br";
 
-export default function Title() {
-  const doneHabitsPercentage = 0;
+export default function Title({ doneSome }) {
+  const { progress } = useContext(ProgressContext);
 
   return (
-    <TitleStyle>
+    <TitleStyle doneSome={doneSome}>
       <div>
-        <p>{`${dayjs().locale("br").day().toString()}, ${dayjs().locale("br").date().toString()}`}</p>
-        <p>{doneHabitsPercentage ? `${doneHabitsPercentage}% dos hábitos concluídos`: "Nenhum hábito concluido ainda"}</p>
+        <p>{`${weekDays[(new Date()).getDay()]}, ${(new Date()).getDate()}/${(new Date()).getMonth()}`}</p>
+        <p>{progress ? `${progress}% dos hábitos concluídos` : "zero habit message"}</p>
       </div>
     </TitleStyle>
   );

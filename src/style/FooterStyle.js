@@ -9,6 +9,7 @@ const FooterStyle = styled.div`
   background-color: ${props => props.theme.color.secondary};
   align-items: center;
   justify-content: space-evenly;
+  z-index: 4;
   font-size: 18px;
   p {
     color: ${props => props.theme.color.main};

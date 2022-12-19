@@ -8,7 +8,8 @@ const color = {
     back: "#CFCFCF"
   },
   input: "#DBDBDB",
-  back: "#E5E5E5"
+  back: "#E5E5E5",
+  subtitle: "#BABABA"
 }
 
 export default color;

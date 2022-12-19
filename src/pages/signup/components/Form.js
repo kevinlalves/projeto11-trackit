@@ -1,18 +1,25 @@
 import { useState } from "react";
 import { FormStyle, ContentStyle } from "../../../style/FormStyle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../../../services/trackit-api";
+import { handleError } from "../../../constants/utils";
 
 export default function Form() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const createAccount = async (e) => {
     e.preventDefault();
-    const data = await signup(email, name, image, password);
-    console.log(data);
+    const { message, details } = await signup(email, name, image, password);
+    if (message) {
+      handleError(message, details);
+      return ;
+    }
+
+    navigate("/");
   };
 
   return (

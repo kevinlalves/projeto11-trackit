@@ -12,7 +12,7 @@ import ProgressContext from "./contexts/ProgressContext";
 import { useMemo, useState } from "react";
 
 export default function App() {
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")));
   const [progress, setProgress] = useState(0);
   const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   const progressValue = useMemo(() => ({ progress, setProgress }), [progress, setProgress]);

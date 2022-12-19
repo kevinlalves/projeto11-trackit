@@ -5,6 +5,7 @@ const FormStyle = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${props => props.theme.color.secondary};
   input {
     margin-bottom: 6px;
     width: 303px;
@@ -12,6 +13,7 @@ const FormStyle = styled.form`
     padding-left: 10px;
     font-size: 20px;
     border: 1px ${props => props.theme.color.input} solid;
+    border-radius: 5px;
   }
   input::placeholder {
     color: ${props => props.theme.color.input};

@@ -9,8 +9,10 @@ const HeaderStyle = styled.div`
   align-items: center;
   padding-left: 18px;
   padding-right: 18px;
+  z-index: 4;
   justify-content: space-between;
   background-color: ${props => props.theme.color.header};
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   p {
     color: ${props => props.theme.color.secondary};
     font-family: "Playball", cursive !important;

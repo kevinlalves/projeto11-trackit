@@ -8,26 +8,33 @@ import UserContext from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { listTodaysHabits } from "../../services/trackit-api";
+import ProgressContext from "../../contexts/ProgressContext";
+import { getProgress } from "../../constants/utils";
+import { emptyText } from "../../constants/i18n-br";
 
 export default function TodayPage() {
   const [habits, setHabits] = useState(undefined);
+  const [numDone, setNumDone] = useState(0);
   const { user } = useContext(UserContext);
+  const { setProgress } = useContext(ProgressContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
-  }, [user]);
 
-  useEffect(() => {
     async function fetchData() {
-      const data = await listTodaysHabits(user.token);
-      setHabits(data);
+      const todayHabits = await listTodaysHabits(user.token);
+      const { doneHabits, progress } = getProgress(todayHabits);
+      window.localStorage.setItem("progress", progress);
+      setProgress(progress);
+      setNumDone(doneHabits);
+      setHabits(todayHabits);
     }
 
     fetchData();
-  }, []);
+  }, [user, navigate, setProgress]);
 
   if (!habits) {
     return <Loading />
@@ -37,9 +44,13 @@ export default function TodayPage() {
     <>
       <Header />
       <LoggedPageStyle>
-        <Title doneSome={habits.length && habits.some(habit => habit.done === true)} />
+        <Title numDone={numDone} />
         {habits.length !== 0
-        && habits.map(habit => <Habit key={habit.id} habit={habit} setHabits={setHabits} />)}
+          ? habits.map(habit =>
+            <Habit key={habit.id} habit={habit} habitsSize={habits.length} setNumDone={setNumDone} numDone={numDone} />
+          )
+          : emptyText.todayPage
+        }
       </LoggedPageStyle>
       <Footer />
     </>

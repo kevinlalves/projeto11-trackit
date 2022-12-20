@@ -13,7 +13,7 @@ import { useMemo, useState } from "react";
 
 export default function App() {
   const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")));
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(window.localStorage.getItem("progress"));
   const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   const progressValue = useMemo(() => ({ progress, setProgress }), [progress, setProgress]);
 

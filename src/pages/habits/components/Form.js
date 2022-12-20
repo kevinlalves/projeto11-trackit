@@ -4,18 +4,22 @@ import UserContext from "../../../contexts/UserContext";
 import { createHabit } from "../../../services/trackit-api";
 import Days from "../../../components/Days";
 import { FormStyle } from "../../../style/FormStyle";
+import ProgressContext from "../../../contexts/ProgressContext";
 
-export default function Form({ setCreatingHabit, setHabits, habits }) {
-  const [name, setName] = useState("");
-  const [days, setDays] = useState([]);
+export default function Form({ setCreatingHabit, setHabits, habits, name, setName, days, setDays }) {
   const [disabled, setDisabled] = useState(false);
   const { user } = useContext(UserContext);
+  const {progress, setProgress} = useContext(ProgressContext);
 
   const createHabitApi = async (e) => {
     setDisabled(true);
     e.preventDefault();
     const newHabit = await createHabit(name, days, user.token);
     setHabits([...habits, newHabit]);
+    setProgress(progress*habits.length/(habits.length+1));
+    setCreatingHabit(false);
+    setName("");
+    setDays([]);
     setDisabled(false);
   };
 

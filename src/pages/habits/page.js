@@ -9,8 +9,11 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import { listHabits } from "../../services/trackit-api";
 import Form from "./components/Form";
+import { emptyText } from "../../constants/i18n-br";
 
 export default function HabitsPage() {
+  const [name, setName] = useState("");
+  const [days, setDays] = useState([]);
   const [habits, setHabits] = useState(undefined);
   const [creatingHabit, setCreatingHabit] = useState(false);
   const { user } = useContext(UserContext);
@@ -20,16 +23,14 @@ export default function HabitsPage() {
     if (!user) {
       navigate("/");
     }
-  }, [user, navigate]);
 
-  useEffect(() => {
     async function fetchData() {
-      const data = await listHabits(user.token);
-      setHabits(data);
+      const newHabits = await listHabits(user.token);
+      setHabits(newHabits);
     }
 
     fetchData();
-  }, []);
+  }, [user, navigate]);
 
   if (!habits) {
     return <Loading />;
@@ -40,10 +41,18 @@ export default function HabitsPage() {
       <Header />
       <LoggedPageStyle>
         <Title setCreatingHabit={setCreatingHabit} />
-        {creatingHabit && <Form setCreatingHabit={setCreatingHabit} setHabits={setHabits} habits={habits} />}
+        {creatingHabit && <Form
+          setCreatingHabit={setCreatingHabit}
+          setHabits={setHabits}
+          habits={habits}
+          name={name}
+          setName={setName}
+          days={days}
+          setDays={setDays}
+        />}
         {habits.length
           ? habits.map(habit => <Habit key={habit.id} habit={habit} setHabits={setHabits} habits={habits} />)
-          : "zero habit text"}
+          : emptyText.habitsPage}
       </LoggedPageStyle>
       <Footer />
     </>

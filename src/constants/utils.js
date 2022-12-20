@@ -12,7 +12,7 @@ function handleError(message, details) {
 
 function getProgress(habits) {
   if (!habits || !habits.length) {
-    return 0;
+    return { doneHabits: 0,  progress: 0};
   }
 
   let doneHabits = 0;
@@ -21,7 +21,8 @@ function getProgress(habits) {
       doneHabits++;
     }
   }
-  return (doneHabits/habits.length)*100;
+  const progress = (doneHabits/habits.length)*100;
+  return { doneHabits, progress };
 }
 
 export { handleError, getProgress };

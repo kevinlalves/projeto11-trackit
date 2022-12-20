@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import UserContext from "../../contexts/UserContext";
 import LoggedPageStyle from "../../style/LoggedPageStyle";
 import Title from "./components/Title";
+import { emptyText } from "../../constants/i18n-br";
 
 export default function HistoryPage() {
   const { user } = useContext(UserContext);
@@ -14,14 +15,14 @@ export default function HistoryPage() {
     if (!user) {
       navigate("/");
     }
-  }, [user]);
+  }, [user, navigate]);
 
   return user ? (
     <>
       <Header />
       <LoggedPageStyle>
         <Title />
-        <p>In contruction</p>
+        <p>{emptyText.historyPage}</p>
       </LoggedPageStyle>
       <Footer />
     </>

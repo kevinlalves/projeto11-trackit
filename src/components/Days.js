@@ -8,7 +8,7 @@ export default function Days({ days, setDays }) {
     }
 
     const existentIdx = days.indexOf(dayIdx);
-    if (existentIdx > 0) {
+    if (existentIdx >= 0) {
       days.splice(existentIdx, 1);
       const newDays = [...days];
       setDays(newDays);

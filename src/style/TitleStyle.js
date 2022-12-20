@@ -12,7 +12,7 @@ const TitleStyle = styled.div`
       margin-bottom: 5px;
     }
     p:nth-child(2) {
-      color: ${props => props.doneSome ? props.theme.color.done : props.theme.color.subtitle};
+      color: ${props => props.numDone > 0 ? props.theme.color.done : props.theme.color.subtitle};
       font-size: 18px;
     }
   }

@@ -1,22 +1,38 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import checkmark from "../../../assets/checkmark.png";
+import ProgressContext from "../../../contexts/ProgressContext";
 import UserContext from "../../../contexts/UserContext";
-import { checkHabitDone, listTodaysHabits, uncheckHabitDone } from "../../../services/trackit-api";
+import { checkHabitDone, uncheckHabitDone } from "../../../services/trackit-api";
 import HabitStyle from "../../../style/HabitStyle";
 
-export default function Habit({ habit, setHabits }) {
+export default function Habit({ habit, habitsSize, numDone, setNumDone }) {
   const { user } = useContext(UserContext);
+  const { progress, setProgress } = useContext(ProgressContext);
   const { id, name, done, currentSequence, highestSequence } = habit;
+  const [disabled, setDisabled] = useState(false);
+  const [updatedDone, setUpdatedDone] = useState(done);
+  const [updatedCurrentSequence, setUpdatedCurrentSequence] = useState(currentSequence);
 
   const checkDone = async () => {
-    if (done) {
+    setDisabled(true);
+    if (disabled) {
+      return;
+    }
+    if (updatedDone) {
       await uncheckHabitDone(id, user.token);
+      setUpdatedCurrentSequence(updatedCurrentSequence-1);
+      setNumDone(numDone-1);
+      setProgress(progress - 100/habitsSize);
     } else {
       await checkHabitDone(id, user.token);
+      setUpdatedCurrentSequence(updatedCurrentSequence+1);
+      setNumDone(numDone+1);
+      setProgress(progress + 100/habitsSize);
     }
-    const data = await listTodaysHabits(user.token);
-    setHabits(data);
+
+    setUpdatedDone(!updatedDone);
+    setDisabled(false);
   }
 
   return (
@@ -24,11 +40,11 @@ export default function Habit({ habit, setHabits }) {
       <Left>
         <p>{name}</p>
         <Info>
-          <p>{`Sequência atual: ${currentSequence} dias`}</p>
-          <p>{`Seu recorde: ${highestSequence} dias`}</p>
+          <p>{`Sequência atual: ${updatedCurrentSequence} dias`}</p>
+          <p>{`Seu recorde: ${Math.max(highestSequence, updatedCurrentSequence)} dias`}</p>
         </Info>
       </Left>
-      <State onClick={checkDone} done={done}>
+      <State onClick={checkDone} done={updatedDone}>
         <img src={checkmark} alt="checkmark" />
       </State>
     </THabitStyle>
@@ -37,6 +53,7 @@ export default function Habit({ habit, setHabits }) {
 
 const THabitStyle = styled(HabitStyle)`
   flex-direction: row;
+  justify-content: space-between;
 `;
 
 const State = styled.div`

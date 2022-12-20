@@ -7,6 +7,7 @@ const LoggedPageStyle = styled.div`
   margin-bottom: 70px;
   padding-left: 17px;
   padding-right: 17px;
+  font-size: 18px;
 `;
 
 export default LoggedPageStyle;

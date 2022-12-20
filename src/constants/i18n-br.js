@@ -11,4 +11,8 @@ const emptyText = {
   historyPage: "Em breve você poderá ver o histórico dos seus hábitos aqui"
 }
 
-export { weekDays, title, emptyText };
+const dialogue = {
+  delete: "Realmente deseja deletar?"
+}
+
+export { weekDays, title, emptyText, dialogue };

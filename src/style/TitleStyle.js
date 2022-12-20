@@ -27,6 +27,10 @@ const TitleStyle = styled.div`
     font-size: 27px;
     color: ${props => props.theme.color.secondary};
     background-color: ${props => props.theme.color.main};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 4px;
   }
 `;
 

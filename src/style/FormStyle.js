@@ -27,6 +27,9 @@ const FormStyle = styled.form`
     height: 45px;
     margin-bottom: 25px;
     font-size: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

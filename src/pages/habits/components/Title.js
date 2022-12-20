@@ -9,7 +9,7 @@ export default function Title({ setCreatingHabit }) {
           <p>{title.habitsPage}</p>
         </div>
         <button onClick={() => setCreatingHabit(true)}>
-          +
+          <p>+</p>
         </button>
       </TitleStyle>
     </>

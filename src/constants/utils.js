@@ -1,5 +1,5 @@
 function handleError(message, details) {
-  let errorMsg = "Houveram problemas: \n";
+  let errorMsg = "Houveram o(s) seguinte(s) problema(s): \n";
   if (details) {
     for (const detail of details) {
       errorMsg += `${detail}\n`;

@@ -5,6 +5,7 @@ import { deleteHabit } from "../../../services/trackit-api";
 import HabitStyle from "../../../style/HabitStyle";
 import Days from "../../../components/Days";
 import ProgressContext from "../../../contexts/ProgressContext";
+import { dialogue } from "../../../constants/i18n-br";
 
 export default function Habit({ habit, setHabits, habits }) {
   const { user } = useContext(UserContext);
@@ -14,9 +15,10 @@ export default function Habit({ habit, setHabits, habits }) {
 
   const removeHabit = async () => {
     setDisabled(true);
-    if (disabled) {
+    if (disabled || !window.confirm(dialogue.delete)) {
       return ;
     }
+
     await deleteHabit(id, user.token);
     setProgress(progress - 100/habits.length);
     setHabits(habits.filter(habit => habit.id !== id));

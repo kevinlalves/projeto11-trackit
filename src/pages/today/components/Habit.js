@@ -39,7 +39,7 @@ export default function Habit({ habit, habitsSize, numDone, setNumDone }) {
     <THabitStyle>
       <Left>
         <p>{name}</p>
-        <Info>
+        <Info updatedDone={updatedDone} newRecord={highestSequence && (updatedCurrentSequence >= highestSequence)}>
           <p>{`Sequência atual: ${updatedCurrentSequence} dias`}</p>
           <p>{`Seu recorde: ${Math.max(highestSequence, updatedCurrentSequence)} dias`}</p>
         </Info>
@@ -75,6 +75,7 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 20px;
+  max-width: calc(100% - 74px);
 `;
 
 const Info = styled.div`
@@ -82,4 +83,10 @@ const Info = styled.div`
   flex-direction: column;
   font-size: 13px;
   margin-top: 10px;
+  p:nth-child(1) {
+    color: ${props => props.updatedDone ? props.theme.color.done : "black"};
+  }
+  p:nth-child(2) {
+    color: ${props => props.newRecord ? props.theme.color.done : "black"};
+  }
 `;

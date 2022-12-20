@@ -39,7 +39,7 @@ export default function Habit({ habit, habitsSize, numDone, setNumDone }) {
     <THabitStyle>
       <Left>
         <p>{name}</p>
-        <Info updatedDone={updatedDone} newRecord={highestSequence && (updatedCurrentSequence >= highestSequence)}>
+        <Info updatedDone={updatedDone} newRecord={updatedCurrentSequence && (updatedCurrentSequence >= highestSequence)}>
           <p>{`Sequência atual: ${updatedCurrentSequence} dias`}</p>
           <p>{`Seu recorde: ${Math.max(highestSequence, updatedCurrentSequence)} dias`}</p>
         </Info>
